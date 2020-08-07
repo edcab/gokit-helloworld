@@ -1,9 +1,12 @@
 package helloworld
 
-import "context"
+import (
+	"context"
+	"fmt"
+)
 
 type HelloInterfaceService interface {
-	DoHello(ctx context.Context) (string, error)
+	SayHelloToMe(ctx context.Context, request interface{}) (string, error)
 }
 
 type HelloService struct {
@@ -13,6 +16,7 @@ func NewService() HelloService {
 	return HelloService{}
 }
 
-func (service *HelloService) DoHello(ctx context.Context) (string, error) {
+func (service *HelloService) SayHelloToMe(ctx context.Context, request interface{}) (string, error) {
+	fmt.Println("El request en service es: ", request)
 	return "Hola, es tu nuevo amigo Gopher !", nil
 }

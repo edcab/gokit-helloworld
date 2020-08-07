@@ -12,8 +12,7 @@ type Endpoints struct {
 
 func MakeGetEndpoint(srv helloworld.HelloService) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
-		//_ = request.(getRequest) // we really just need the request, we don't use any value from it
-		d, err := srv.DoHello(ctx)
+		d, err := srv.SayHelloToMe(ctx, request)
 		if err != nil {
 			return getResponse{d, err.Error()}, nil
 		}

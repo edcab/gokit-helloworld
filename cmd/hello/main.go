@@ -3,14 +3,10 @@ package main
 import (
 	"context"
 	"flag"
-	"fmt"
 	"github.com/edcab/gokit-helloworld/pkg/helloworld"
 	"github.com/edcab/gokit-helloworld/pkg/server"
 	"log"
 	"net/http"
-	"os"
-	"os/signal"
-	"syscall"
 )
 
 func main() {
@@ -23,12 +19,6 @@ func main() {
 	errChan := make(chan error)
 
 	service := helloworld.NewService()
-
-	go func() {
-		c := make(chan os.Signal, 1)
-		signal.Notify(c, syscall.SIGINT, syscall.SIGTERM)
-		errChan <- fmt.Errorf("%s", <-c)
-	}()
 
 	// mapping endpoints
 	endpoints := server.Endpoints{

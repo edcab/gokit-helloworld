@@ -6,46 +6,22 @@ import (
 	"net/http"
 )
 
-// In the first part of the file we are mapping requests and responses to their JSON payload.
-type getRequest struct{}
-
 type getResponse struct {
 	Message string `json:"message"`
 	Err     string `json:"err,omitempty"`
 }
 
-type validateRequest struct {
-	Date string `json:"date"`
+type exampleRequest struct{
+	Key   string `json:"Key"`
+	Key2   string `json:"Key2"`
 }
 
-type validateResponse struct {
-	Valid bool   `json:"valid"`
-	Err   string `json:"err,omitempty"`
-}
-
-type statusRequest struct{}
-
-type statusResponse struct {
-	Status string `json:"status"`
-}
-
-// In the second part we will write "decoders" for our incoming requests
-func decodeGetRequest(ctx context.Context, r *http.Request) (interface{}, error) {
-	var req getRequest
-	return req, nil
-}
-
-func DecodeValidateRequest(ctx context.Context, r *http.Request) (interface{}, error) {
-	var req validateRequest
+func DecodeExampleRequest(ctx context.Context, r *http.Request) (interface{}, error) {
+	var req exampleRequest
 	err := json.NewDecoder(r.Body).Decode(&req)
 	if err != nil {
 		return nil, err
 	}
-	return req, nil
-}
-
-func DecodeStatusRequest(ctx context.Context, r *http.Request) (interface{}, error) {
-	var req statusRequest
 	return req, nil
 }
 
